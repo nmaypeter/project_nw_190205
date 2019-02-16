@@ -144,9 +144,9 @@ class DiffusionNormalIC:
                 else:
                     a_e_set[k_prod_t][i_node_t] = {out}
 
-        t = 0
+        diff_times = 0
         while len(try_a_n_sequence) > 0:
-            t += 1
+            diff_times += 1
             try_node = choice(try_a_n_sequence)
             try_a_n_sequence.remove(try_node)
             k_prod_t, i_node_t, i_acc_prob_t, child_depth = try_node[0], try_node[1], try_node[2], try_node[3]
@@ -183,9 +183,8 @@ class DiffusionNormalIC:
                     a_e_set[k_prod_t][i_node_t].add(out)
                 else:
                     a_e_set[k_prod_t][i_node_t] = {out}
-        # print(k_prod, i_node, t, round(ep, 2))
 
-        return round(ep, 2), t
+        return round(ep, 2), diff_times
 
 
 class Evaluation:
