@@ -23,64 +23,41 @@ class SeedSelectionNG:
     def getMostValuableSeed(self, s_set, nban_set, cur_bud, w_list, pp_list):
         # -- calculate expected profit for all combinations of nodes and products --
         ### ban_set: (list) the set to record the node that will be banned
-        ### mep: (list) [#product, #node, expected profit, profit per product, purchasing node number per product]
+        ### mep_g: (list) [#product, #node, expected profit]
         ban_set = [set() for _ in range(self.num_product)]
         mep = [0, '-1', 0.0]
-        # mep = [0, '-1', 0.0, [0.0 for _ in range(self.num_product)], [0 for _ in range(self.num_product)]]
+        m_diff_times = 0
+
         dnic_s = DiffusionNormalIC(self.graph_dict, self.seed_cost_dict, self.product_list, self.pps, self.wpiwp)
-        a, b, c = 0, 0, 0
-        mt = 0
-        st = 0
 
         for k in range(self.num_product):
-            # lll = len(nban_set[k])
             for i in nban_set[k]:
-                # lll -= 1
-                # print(k, lll)
                 # -- the cost of seed cannot exceed the budget --
                 if self.seed_cost_dict[i] + cur_bud > self.total_budget:
-                    a += 1
                     ban_set[k].add(i)
                     continue
-                ep, t = dnic_s.getSeedSetProfit(k, i, s_set, copy.deepcopy(w_list), copy.deepcopy(pp_list))
-                mt = max(mt, t)
-                st += t
-                # ep, pro_k_list, pnn_k_list = dnic_s.getSeedSetProfit(k, i, s_set, copy.deepcopy(w_list), copy.deepcopy(pp_list))
-                bud_ep = cur_bud + self.seed_cost_dict[i]
-                if mep[1] == '-1':
-                    bud_mep = cur_bud
-                else:
-                    bud_mep = cur_bud + self.seed_cost_dict[mep[1]]
+                ep, diff_times = dnic_s.getSeedSetProfit(k, i, s_set, copy.deepcopy(w_list), copy.deepcopy(pp_list))
+                m_diff_times = max(m_diff_times, diff_times)
 
                 # -- the expected profit cannot be negative --
                 if ep <= 0:
-                    b += 1
                     ban_set[k].add(i)
                     continue
 
-                # -- the expected profit cannot be negative --
-                if t <= mt * 0.1:
-                    c += 1
+                # -- the diffusion times cannot be too low --
+                if diff_times <= m_diff_times * 0.1:
                     ban_set[k].add(i)
                     continue
 
                 # -- choose the better seed --
                 if ep > mep[2]:
-                # if ep - bud_ep > mep[2] - bud_mep or bud_mep == 0.0:
-                #     mep = [k, i, ep, pro_k_list, pnn_k_list]
                     mep = [k, i, ep]
-        print('a, b, c')
-        print(a, b, c)
-        print('st')
-        print(st)
 
         # -- remove the impossible seeds from nban_set
-        print('nban')
         for k in range(self.num_product):
             for i in ban_set[k]:
                 if i in nban_set[k]:
                     nban_set[k].remove(i)
-            print(len(nban_set[k]))
 
         return mep, nban_set
 
@@ -126,47 +103,22 @@ if __name__ == "__main__":
     ### seed_set[kk]: (set) the seed set for kk-product
     seed_set = [set() for _ in range(num_product)]
 
-    print('time')
-    print(round(time.time() - start_time, 2))
-    print("getMostValuableSeed")
-    temp = time.time()
-
-    mep, nban_seed_set = ssng.getMostValuableSeed(seed_set, copy.deepcopy(notban_seed_set), now_budget, copy.deepcopy(wallet_list), copy.deepcopy(personal_prob_list))
-    mep_k_prod, mep_i_node, mep_profit = mep[0], mep[1], mep[2]
-    # mep_k_prod, mep_i_node, mep_profit, mep_pro_k_list, mep_pnn_k_list = mep[0], mep[1], mep[2], mep[3], mep[4]
-    print(mep)
+    mep_g, nban_seed_set = ssng.getMostValuableSeed(seed_set, copy.deepcopy(notban_seed_set), now_budget, copy.deepcopy(wallet_list), copy.deepcopy(personal_prob_list))
+    mep_k_prod, mep_i_node, mep_profit = mep_g[0], mep_g[1], mep_g[2]
 
     # -- main --
     while now_profit < mep_profit and mep_i_node != '-1':
-        print('time')
-        print(round(time.time() - start_time, 2))
-        print(round(time.time() - temp, 2))
-        print("insertSeedIntoSeedSet")
-        temp = time.time()
         for kk in range(num_product):
             if mep_i_node in nban_seed_set[kk]:
                 nban_seed_set[kk].remove(mep_i_node)
         seed_set[mep_k_prod].add(mep_i_node)
-        print('seed_set')
-        print(seed_set)
 
         bud_k_list[mep_k_prod] += seed_cost_dict[mep_i_node]
         now_profit = mep_profit
         now_budget += seed_cost_dict[mep_i_node]
-        print('bud_k_list, now_profit, now_budget')
-        print(bud_k_list, now_profit, now_budget)
-        # print('pro_k_list, bud_k_list, now_profit, now_budget')
-        # print(mep_pro_k_list, bud_k_list, now_profit, now_budget)
 
-        print('time')
-        print(round(time.time() - start_time, 2))
-        print(round(time.time() - temp, 2))
-        print("getMostValuableSeed")
-        mep, nban_seed_set = ssng.getMostValuableSeed(seed_set, nban_seed_set, now_budget, copy.deepcopy(wallet_list), copy.deepcopy(personal_prob_list))
-        mep_k_prod, mep_i_node, mep_profit = mep[0], mep[1], mep[2]
-        # mep_k_prod, mep_i_node, mep_profit, mep_pro_k_list, mep_pnn_k_list = mep[0], mep[1], mep[2], mep[3], mep[4]
-        print('mep_profit, mep_i_node')
-        print(mep_profit, mep_i_node)
+        mep_g, nban_seed_set = ssng.getMostValuableSeed(seed_set, nban_seed_set, now_budget, copy.deepcopy(wallet_list), copy.deepcopy(personal_prob_list))
+        mep_k_prod, mep_i_node, mep_profit = mep_g[0], mep_g[1], mep_g[2]
 
     pro_acc, pro_k_list_acc, pnn_k_list_acc = 0.0, [0.0 for _ in range(num_product)], [0 for _ in range(num_product)]
     for _ in range(100):
