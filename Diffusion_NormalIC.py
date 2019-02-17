@@ -54,21 +54,21 @@ class DiffusionNormalIC:
         if self.pps == 1:
             # -- after buying a product, the prob. to buy another product will decrease randomly --
             for k in range(self.num_product):
-                if k == k_prod:
+                if k == k_prod or w_list[int(i_node)] == 0.0:
                     pp_list[k][int(i_node)] = 0
                 else:
                     pp_list[k][int(i_node)] = round(random.uniform(0, pp_list[k][int(i_node)]), 4)
         elif self.pps == 2:
             # -- choose as expensive as possible --
             for k in range(self.num_product):
-                if k == k_prod:
+                if k == k_prod or w_list[int(i_node)] == 0.0:
                     pp_list[k][int(i_node)] = 0
                 else:
                     pp_list[k][int(i_node)] *= round((prod_price / w_list[int(i_node)]), 4)
         elif self.pps == 3:
             # -- choose as cheap as possible --
             for k in range(self.num_product):
-                if k == k_prod:
+                if k == k_prod or w_list[int(i_node)] == 0.0:
                     pp_list[k][int(i_node)] = 0
                 else:
                     pp_list[k][int(i_node)] *= round(1 - (prod_price / w_list[int(i_node)]), 4)
@@ -173,8 +173,8 @@ class DiffusionNormalIC:
                 if str(round(ep, 4)) != str(round(ep + temp_ep, 4)):
                     continue
                 ep += temp_ep
-                w_list[int(i_node_t)] -= od * self.product_list[k_prod][2]
-                pp_list = dnic_d.updatePersonalProbList(k_prod_t, i_node_t, w_list, pp_list)
+                # w_list[int(i_node_t)] -= od * self.product_list[k_prod][2]
+                # pp_list = dnic_d.updatePersonalProbList(k_prod_t, i_node_t, w_list, pp_list)
 
                 # -- activate the receivers temporally --
                 try_a_n_sequence.append([k_prod_t, out, round(i_acc_prob_t * od, 2), child_depth + 1])
