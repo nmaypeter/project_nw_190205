@@ -92,7 +92,7 @@ if __name__ == "__main__":
     result = []
     avg_profit, avg_budget = 0.0, 0.0
     avg_num_k_seed, avg_num_k_pn = [0 for _ in range(num_product)], [0 for _ in range(num_product)]
-    bud_k_list = [0.0 for _ in range(num_product)]
+    profit_k_list, budget_k_list = [0.0 for _ in range(num_product)], [0.0 for _ in range(num_product)]
 
     # -- initialization for each sample_number --
     ### now_profit, now_budget: (float) the profit and budget in this execution_time
@@ -114,7 +114,7 @@ if __name__ == "__main__":
                 nban_seed_set[kk].remove(mep_i_node)
         seed_set[mep_k_prod].add(mep_i_node)
 
-        bud_k_list[mep_k_prod] += seed_cost_dict[mep_i_node]
+        budget_k_list[mep_k_prod] += seed_cost_dict[mep_i_node]
         now_profit = mep_profit
         now_budget += seed_cost_dict[mep_i_node]
 
@@ -130,7 +130,7 @@ if __name__ == "__main__":
             pnn_k_list_acc[kk] += pnn_k_list[kk]
     pro_acc = round(pro_acc / 100, 2)
     for kk in range(num_product):
-        pro_k_list_acc[kk] = round(pro_k_list_acc[kk] / 100, 2)
+        profit_k_list[kk] += round(pro_k_list_acc[kk] / 100, 2)
         pnn_k_list_acc[kk] = round(pnn_k_list_acc[kk] / 100, 2)
     now_budget = round(now_budget, 2)
 
@@ -140,11 +140,12 @@ if __name__ == "__main__":
     avg_profit += now_profit
     avg_budget += now_budget
     for kk in range(num_product):
+        budget_k_list[kk] = round(budget_k_list[kk], 2)
         avg_num_k_seed[kk] += now_num_k_seed[kk]
         avg_num_k_pn[kk] += pnn_k_list_acc[kk]
     how_long = round(time.time() - start_time, 2)
     print("result")
     print(result)
-    print("\npro_k_list, bud_k_list")
-    print(pro_k_list_acc, bud_k_list)
+    print("\npro_k_list, budget_k_list")
+    print(profit_k_list, budget_k_list)
     print("total time: " + str(how_long) + "sec")
