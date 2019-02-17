@@ -79,14 +79,15 @@ if __name__ == "__main__":
     num_node = len(seed_cost_dict)
     num_product = len(product_list)
 
+    # -- initialization for each budget --
+    start_time = time.time()
+
     ssng = SeedSelectionNG(graph_dict, seed_cost_dict, product_list, total_budget, pp_strategy, whether_passing_information_without_purchasing)
     dnic = DiffusionNormalIC(graph_dict, seed_cost_dict, product_list, pp_strategy, whether_passing_information_without_purchasing)
     eva = Evaluation(graph_dict, seed_cost_dict, product_list, pp_strategy, whether_passing_information_without_purchasing)
 
     personal_prob_list = dnic.setPersonalProbList(wallet_list)
 
-    # -- initialization for each budget --
-    start_time = time.time()
     ### result: (list) [profit, budget, seed number per product, customer number per product, seed set] in this execution_time
     result = []
     avg_profit, avg_budget = 0.0, 0.0
@@ -94,14 +95,14 @@ if __name__ == "__main__":
     bud_k_list = [0.0 for _ in range(num_product)]
 
     # -- initialization for each sample_number --
-    ### notban_seed_set: (list) the possible seed set
-    ### notban_seed_set[kk]: (set) the possible seed set for kk-product
-    notban_seed_set = [set(graph_dict.keys()) for _ in range(num_product)]
     ### now_profit, now_budget: (float) the profit and budget in this execution_time
     now_profit, now_budget = 0.0, 0.0
     ### seed_set: (list) the seed set
     ### seed_set[kk]: (set) the seed set for kk-product
     seed_set = [set() for _ in range(num_product)]
+    ### notban_seed_set: (list) the possible seed set
+    ### notban_seed_set[kk]: (set) the possible seed set for kk-product
+    notban_seed_set = [set(graph_dict.keys()) for _ in range(num_product)]
 
     mep_g, nban_seed_set = ssng.getMostValuableSeed(seed_set, copy.deepcopy(notban_seed_set), now_budget, copy.deepcopy(wallet_list), copy.deepcopy(personal_prob_list))
     mep_k_prod, mep_i_node, mep_profit = mep_g[0], mep_g[1], mep_g[2]
