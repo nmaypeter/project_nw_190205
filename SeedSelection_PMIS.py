@@ -77,8 +77,6 @@ class SeedSelectionPMIS:
 
             mep, nban_seed_set = sspmis_ss.getMostValuableSeed(k, seed_set_t, copy.deepcopy(nban_set_k), cur_budget, copy.deepcopy(w_list), copy.deepcopy(pp_list))
             mep_k_prod, mep_i_node, mep_profit = mep[0], mep[1], mep[2]
-            print(round(time.time() - start_time, 2))
-            temp_time = time.time()
 
             while cur_profit < mep_profit:
                 if mep_i_node in nban_set_k:
@@ -90,13 +88,9 @@ class SeedSelectionPMIS:
                 s_matrix[k].append(copy.deepcopy(seed_set_t))
                 p_matrix[k].append(cur_profit)
                 c_matrix[k].append(round(cur_budget, 2))
-                print(mep, round(cur_budget, 2))
 
                 mep, nban_seed_set = sspmis_ss.getMostValuableSeed(k, seed_set_t, nban_seed_set, cur_budget, copy.deepcopy(w_list), copy.deepcopy(pp_list))
                 mep_k_prod, mep_i_node, mep_profit = mep[0], mep[1], mep[2]
-                print(round(time.time() - temp_time, 2))
-                print(round(time.time() - start_time, 2))
-                temp_time = time.time()
 
         return s_matrix, p_matrix, c_matrix
 
