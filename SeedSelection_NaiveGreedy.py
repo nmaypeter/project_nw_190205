@@ -23,7 +23,7 @@ class SeedSelectionNG:
     def getMostValuableSeed(self, s_set, nban_set, cur_bud, w_list, pp_list):
         # -- calculate expected profit for all combinations of nodes and products --
         ### ban_set: (list) the set to record the node that will be banned
-        ### mep_g: (list) [#product, #node, expected profit]
+        ### mep: (list) [#product, #node, expected profit]
         ban_set = [set() for _ in range(self.num_product)]
         mep = [0, '-1', 0.0]
         m_diff_times = 0
