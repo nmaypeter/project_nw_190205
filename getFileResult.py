@@ -80,42 +80,42 @@ for m in [2, 3]:
                             if not os.path.isdir(path):
                                 os.mkdir(path)
 
-                            fw = open(path + "/profit.txt", 'w')
+                            fw = open(path + "/1profit.txt", 'w')
                             for line in profit:
                                 fw.write(str(line) + "\t")
                             fw.close()
-                            fw = open(path + "/cost.txt", 'w')
+                            fw = open(path + "/2cost.txt", 'w')
                             for line in cost:
                                 fw.write(str(line) + "\t")
                             fw.close()
-                            fw = open(path + "/time_avg.txt", 'w')
+                            fw = open(path + "/3time_avg.txt", 'w')
                             for line in time_avg:
                                 fw.write(str(line) + "\t")
                             fw.close()
-                            fw = open(path + "/time_total.txt", 'w')
+                            fw = open(path + "/4time_total.txt", 'w')
                             for line in time_total:
                                 fw.write(str(line) + "\t")
                             fw.close()
-                            fw = open(path + "/ratio_profit.txt", 'w')
+                            fw = open(path + "/5ratio_profit.txt", 'w')
                             for line in ratio_profit:
                                 for l in line:
                                     fw.write(str(l) + "\t")
                                 fw.write("\n")
                             fw.close()
-                            fw = open(path + "/ratio_cost.txt", 'w')
+                            fw = open(path + "/6ratio_cost.txt", 'w')
                             for line in ratio_cost:
                                 for l in line:
                                     fw.write(str(l) + "\t")
                                 fw.write("\n")
                             fw.close()
-                            fw = open(path + "/number_seed.txt", 'w')
-                            for line in number_seed:
+                            fw = open(path + "/7number_pn.txt", 'w')
+                            for line in number_an:
                                 for l in line:
                                     fw.write(str(l) + "\t")
                                 fw.write("\n")
                             fw.close()
-                            fw = open(path + "/number_an.txt", 'w')
-                            for line in number_an:
+                            fw = open(path + "/8number_seed.txt", 'w')
+                            for line in number_seed:
                                 for l in line:
                                     fw.write(str(l) + "\t")
                                 fw.write("\n")
