@@ -7,12 +7,12 @@ for pps in [1, 2, 3]:
             for prod_setting2 in [1, 2, 3]:
                 product_name = "r1p3n" + str(prod_setting) + "a" * (prod_setting2 == 2) + "b" * (prod_setting2 == 3)
                 for wpiwp in [bool(0), bool(1)]:
-                    for m in [2, 3]:
+                    for m in [1, 2, 3, 4, 5]:
                         model_name = "mngic" * (m == 1) + "mhdic" * (m == 2) + "mric" * (m == 3) + "mhadic" * (m == 4) + "mpmisic" * (m == 5) + "_pps"
 
                         try:
                             result_name = "result/r/" + model_name + str(pps) + "_wpiwp" * wpiwp + "/" + \
-                                          model_name + str(pps) + "_wpiwp" * wpiwp + "_" + data_set_name + "_" + product_name + "/profit.txt"
+                                          model_name + str(pps) + "_wpiwp" * wpiwp + "_" + data_set_name + "_" + product_name + "/1profit.txt"
                             print(result_name)
 
                             with open(result_name) as f:
@@ -28,7 +28,7 @@ for pps in [1, 2, 3]:
 
     fw = open("result/pps" + str(pps) + "_comparison_profit.txt", 'w')
     for lnum, line in enumerate(profit):
-        if lnum % 6 == 0 and lnum != 0:
-            fw.write("\n" * 9)
+        if lnum % 10 == 0 and lnum != 0:
+            fw.write("\n" * 5)
         fw.write(str(line) + "\n")
     fw.close()
