@@ -13,19 +13,19 @@ for m in [2, 3]:
                         path = "result/r/" + model_name + str(pps) + "_wpiwp" * wpiwp + "/" + \
                                model_name + str(pps) + "_wpiwp" * wpiwp + "_" + data_set_name + "_" + product_name
 
-                        with open(path + "/profit.txt") as f:
+                        with open(path + "/1profit.txt") as f:
                             for line in f:
                                 profit.append(line)
                         f.close()
-                        with open(path + "/cost.txt") as f:
+                        with open(path + "/2cost.txt") as f:
                             for line in f:
                                 cost.append(line)
                         f.close()
-                        with open(path + "/time_avg.txt") as f:
+                        with open(path + "/3time_avg.txt") as f:
                             for line in f:
                                 time_avg.append(line)
                         f.close()
-                        with open(path + "/time_total.txt") as f:
+                        with open(path + "/4time_total.txt") as f:
                             for line in f:
                                 time_total.append(line)
                         f.close()
@@ -36,68 +36,68 @@ for m in [2, 3]:
                         path = "result/r/" + model_name + str(pps) + "_wpiwp" * wpiwp + "/" + \
                                model_name + str(pps) + "_wpiwp" * wpiwp + "_" + data_set_name + "_" + product_name
 
-                        with open(path + "/ratio_profit.txt") as f:
+                        with open(path + "/5ratio_profit.txt") as f:
                             for line in f:
                                 ratio_profit.append(line)
                         f.close()
-                        with open(path + "/ratio_cost.txt") as f:
+                        with open(path + "/6ratio_cost.txt") as f:
                             for line in f:
                                 ratio_cost.append(line)
                         f.close()
-                        with open(path + "/number_an.txt") as f:
+                        with open(path + "/7number_pn.txt") as f:
                             for line in f:
                                 number_an.append(line)
                         f.close()
-                        with open(path + "/number_seed.txt") as f:
+                        with open(path + "/8number_seed.txt") as f:
                             for line in f:
                                 number_seed.append(line)
                         f.close()
 
         pathw = "result/r/" + model_name + str(pps) + "_" + data_set_name
-        fw = open(pathw + "_profit.txt", 'w')
+        fw = open(pathw + "_1profit.txt", 'w')
         for lnum, line in enumerate(profit):
             fw.write(str(line) + "\n")
             if lnum == 5:
                 fw.write("\n" * 10)
         fw.close()
-        fw = open(pathw + "_cost.txt", 'w')
+        fw = open(pathw + "_2cost.txt", 'w')
         for lnum, line in enumerate(cost):
             fw.write(str(line) + "\n")
             if lnum == 5:
                 fw.write("\n" * 10)
         fw.close()
-        fw = open(pathw + "_time_avg.txt", 'w')
+        fw = open(pathw + "_3time_avg.txt", 'w')
         for lnum, line in enumerate(time_avg):
             fw.write(str(line) + "\n")
             if lnum == 5:
                 fw.write("\n" * 10)
         fw.close()
-        fw = open(pathw + "_time_total.txt", 'w')
+        fw = open(pathw + "_4time_total.txt", 'w')
         for lnum, line in enumerate(time_total):
             fw.write(str(line) + "\n")
             if lnum == 5:
                 fw.write("\n" * 10)
         fw.close()
 
-        fw = open(pathw + "_ratio_profit.txt", 'w')
+        fw = open(pathw + "_5ratio_profit.txt", 'w')
         for lnum, line in enumerate(ratio_profit):
             if lnum % 6 == 0 and lnum != 0:
                 fw.write("\n" * 9)
             fw.write(str(line))
         fw.close()
-        fw = open(pathw + "_ratio_cost.txt", 'w')
+        fw = open(pathw + "_6ratio_cost.txt", 'w')
         for lnum, line in enumerate(ratio_cost):
             if lnum % 6 == 0 and lnum != 0:
                 fw.write("\n" * 9)
             fw.write(str(line))
         fw.close()
-        fw = open(pathw + "_number_an.txt", 'w')
+        fw = open(pathw + "_7number_pn.txt", 'w')
         for lnum, line in enumerate(number_an):
             if lnum % 6 == 0 and lnum != 0:
                 fw.write("\n" * 9)
             fw.write(str(line))
         fw.close()
-        fw = open(pathw + "_number_seed.txt", 'w')
+        fw = open(pathw + "_8number_seed.txt", 'w')
         for lnum, line in enumerate(number_seed):
             if lnum % 6 == 0 and lnum != 0:
                 fw.write("\n" * 9)
