@@ -10,7 +10,7 @@ if __name__ == "__main__":
                     for prod_setting2 in [1, 2, 3]:
                         product_name = "r1p3n" + str(prod_setting) + "a" * (prod_setting2 == 2) + "b" * (prod_setting2 == 3)
 
-                        total_budget = 3
+                        total_budget = 10
                         sample_number, sample_output_number = 10, 10
 
                         iniG = IniGraph(data_set_name)
