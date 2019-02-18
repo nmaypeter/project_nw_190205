@@ -102,7 +102,7 @@ class DiffusionNormalIC:
 
         # -- notice: prevent the node from owing no receiver --
         if i_node not in self.graph_dict:
-            return round(ep, 2)
+            return round(ep, 2), 0
 
         dnic_d = DiffusionNormalIC(self.graph_dict, self.seed_cost_dict, self.product_list, self.pps, self.wpiwp)
 
