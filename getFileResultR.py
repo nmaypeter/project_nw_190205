@@ -1,5 +1,5 @@
 for m in [2, 3]:
-    model_name = "mngic" * (m == 1) + "mhdic" * (m == 2) + "mric" * (m == 3) + "_pps"
+    model_name = "mngic" * (m == 1) + "mhdic" * (m == 2) + "mric" * (m == 3) + "mhadic" * (m == 4) + "mpmisic" * (m == 5) + "_pps"
     for pps in [1, 2, 3]:
         profit, cost, time_avg, time_total = [], [], [], []
         ratio_profit, ratio_cost, number_an, number_seed = [], [], [], []
