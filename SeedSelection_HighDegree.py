@@ -24,7 +24,7 @@ class SeedSelectionHD:
     def constructDegreeDict(data_name):
         # -- display the degree and the nodes with the degree --
         ### d_dict: (dict) the degree and the nodes with the degree
-        ### d_dict[deg]: (set) the set for deg-degree nodes
+        ### d_dict[degree]: (set) the set for degree-degree nodes
         d_dict = {}
         with open(IniGraph(data_name).data_degree_path) as f:
             for line in f:
