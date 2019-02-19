@@ -7,8 +7,9 @@ for data_setting in [2]:
         for prod_setting2 in [1, 2, 3]:
             product_name = "r1p3n" + str(prod_setting) + "a" * (prod_setting2 == 2) + "b" * (prod_setting2 == 3)
             for wpiwp in [bool(0), bool(1)]:
-                for m in [1, 2, 3, 4, 5]:
-                    model_name = "mngic" * (m == 1) + "mhdic" * (m == 2) + "mric" * (m == 3) + "mhadic" * (m == 4) + "mpmisic" * (m == 5) + "_pps"
+                max_m = 6
+                for m in range(1, max_m + 1):
+                    model_name = "mngic" * (m == 1) + "mhdic" * (m == 2) + "mric" * (m == 3) + "mhadic" * (m == 4) + "mpmisic" * (m == 5) + "mtoic" * (m == 6) + "_pps"
                     for pps in [1, 2, 3]:
 
                         try:
@@ -29,9 +30,9 @@ for data_setting in [2]:
 
 fw = open("result/comparison_profit.txt", 'w')
 for lnum, line in enumerate(profit):
-    if lnum % 15 == 0 and lnum != 0:
+    if lnum % (max_m * 3) == 0 and lnum != 0:
         fw.write("\n")
-    if lnum % 30 == 0 and lnum != 0:
+    if lnum % (max_m * 6) == 0 and lnum != 0:
         fw.write("\n")
     fw.write(str(line) + "\n")
 fw.close()
