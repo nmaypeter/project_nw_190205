@@ -1,8 +1,8 @@
 import os
 
 
-for m in [2, 3]:
-    model_name = "mngic" * (m == 1) + "mhdic" * (m == 2) + "mric" * (m == 3) + "mhadic" * (m == 4) + "mpmisic" * (m == 5) + "_pps"
+for m in [1, 4, 5, 6]:
+    model_name = "mngic" * (m == 1) + "mhdic" * (m == 2) + "mric" * (m == 3) + "mhadic" * (m == 4) + "mpmisic" * (m == 5) + "mtoic" * (m == 6) + "_pps"
     for pps in [1, 2, 3]:
         for wpiwp in [bool(0), bool(1)]:
             for data_setting in [2]:
